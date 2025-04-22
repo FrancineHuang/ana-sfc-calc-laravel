@@ -37,10 +37,10 @@ services:
             - .docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
             - .docker/db/sql:/docker-entrypoint-initdb.d
         environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: refactorian
-            MYSQL_USER: refactorian
-            MYSQL_PASSWORD: refactorian
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
 
     ####################################################################################################
     # phpMyAdmin
@@ -67,6 +67,10 @@ services:
             - 9090:8080
         depends_on:
         - db
+        environment:
+            ADMINER_DEFAULT_SERVER: ${ADMINER_DEFAULT_SERVER}
+            ADMINER_DEFAULT_USERNAME: ${ADMINER_DEFAULT_USERNAME}
+            ADMINER_DEFAULT_PASSWORD: ${ADMINER_DEFAULT_PASSWORD}
 
     ####################################################################################################
     # Mailpit
