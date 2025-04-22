@@ -1,5 +1,3 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 # Laravel Docker Starter Kit
 - Laravel v12.x
 - PHP v8.4.x
@@ -38,26 +36,6 @@
 - [Laravel 12.x](https://github.com/refactorian/laravel-docker/tree/main)
 - [Laravel 11.x](https://github.com/refactorian/laravel-docker/tree/laravel_11x)
 - [Laravel 10.x](https://github.com/refactorian/laravel-docker/tree/laravel_10x)
-
-### Laravel App
-- URL: http://localhost
-
-### Mailpit
-- URL: http://localhost:8025
-
-### phpMyAdmin
-- URL: http://localhost:8080
-- Server: `db`
-- Username: `refactorian`
-- Password: `refactorian`
-- Database: `refactorian`
-
-### Adminer
-- URL: http://localhost:9090
-- Server: `db`
-- Username: `refactorian`
-- Password: `refactorian`
-- Database: `refactorian`
 
 ### Basic docker compose commands
 - Build or rebuild services
