@@ -1,9 +1,12 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FlightController;
 
-// API Routes
-Route::prefix('api')->group(function() {
-  Route::post('/flights', [FlightController::class, 'store']);
-});
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
+
+
+Route::post('flights', [FlightController::class, 'store'])->withoutMiddleware('auth:sanctum');;
