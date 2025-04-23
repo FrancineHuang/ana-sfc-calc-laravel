@@ -19,6 +19,7 @@ class Flight extends Model
         'fare_type',
         'other_expenses',
         'earned_pp',
+        'pp_unitprice', 
         'status',
     ];
 
