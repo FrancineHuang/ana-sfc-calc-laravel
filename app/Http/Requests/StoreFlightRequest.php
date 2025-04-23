@@ -11,7 +11,7 @@ class StoreFlightRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,7 @@ class StoreFlightRequest extends FormRequest
             'destination' => 'required|string|size:3|exists:airports,iata_code|different:departure',
             'flight_number' => 'required|string|max:10',
             'ticket_price' => 'required|integer|min:0',
-            'fare_type' => 'require|string|max:30',
+            'fare_type' => 'required|string|max:30',
             'other_expenses' => 'nullable|integer|min:0',
             'earned_pp' => 'required|integer|min:0',
             'status' => 'nullable|boolean',
