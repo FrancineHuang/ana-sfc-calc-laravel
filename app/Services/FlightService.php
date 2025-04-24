@@ -50,4 +50,19 @@ class FlightService {
             return $flight;
         });
     }
+
+    /**
+     *
+     * Delete existed flight data by id
+     * 
+     *  @param array $data Validated Flight Data
+     *  @return Flight
+     *  @throws Exception
+     */
+    public function deleteFlight(int $id): bool {
+        // Find flight data by id.
+        $flight = Flight::findOrFail($id);
+
+        return $flight->delete();
+    }
 }
