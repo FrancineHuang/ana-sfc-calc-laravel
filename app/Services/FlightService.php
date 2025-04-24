@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Flight;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
 
 class FlightService {
@@ -20,13 +21,23 @@ class FlightService {
     }
 
     /**
+     * Show one specific flight data
+     *
+     * @param int $id
+     * @return Flight
+     * @throws ModelNotFoundException
+     */
+    public function getFlightById(int $id) {
+        return Flight::findOrFail($id);
+    }
+
+    /**
      *  Create new flight data
      *
      *  @param array $data Validated Flight Data
      *  @return Flight
      *  @throws Exception
      */
-
     public function createFlight (array $data) {
         // Calculate unit price of premium points
         return DB::transaction(function () use ($data) {

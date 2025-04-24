@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFlightRequest;
+use App\Models\Flight;
 use App\Services\FlightService;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class FlightController extends Controller
 {
@@ -26,9 +28,9 @@ class FlightController extends Controller
 
         // Return response
         return response()->json([
-          'status' => 'success',
-          'message' => 'フライトのデータが作成されました',
-          'data' => $flight
+            'status' => 'success',
+            'message' => 'フライトのデータが作成されました',
+            'data' => $flight
         ], 201);
     }
 
@@ -36,20 +38,48 @@ class FlightController extends Controller
      * Get all flights data
      */
     public function index() {
-      try {
-        // get all flights through FlightService
-        $flights = $this->flightService->getAllFlights();
+        try {
+            // get all flights through FlightService
+            $flights = $this->flightService->getAllFlights();
 
-        return response()->json([
-          'status' => 'success',
-          'data' => $flights
-        ]);
-      } catch (Exception $e) {
-        // Error handling
-        return response()->json([
-          'status' => 'error',
-          'message' => 'エラーが発生しました：' . $e->getMessage()
-        ], 500);
-      }
+            return response()->json([
+                'status' => 'success',
+                'data' => $flights
+            ]);
+        } catch (Exception $e) {
+            // Error handling
+            return response()->json([
+                'status' => 'error',
+                'message' => 'エラーが発生しました：' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Show specific flights data
+     */
+    public function show(int $id) {
+        
+        try {
+            $flight = $this->flightService->getFlightById($id);
+            
+            // get specific flight through FlightService by id
+            return response()->json([
+                'status' => 'success',
+                'data' => $flight
+            ]);
+        } catch (ModelNotFoundException $e) {
+            // if the flight does not exists
+            return response()->json([
+                'status' => 'error',
+                'message' => 'フライトが見つかりませんでした。'
+            ], 404);
+        } catch (Exception $e) {
+            // other error handling
+            return response()->json([
+                'status' => 'error',
+                'message' => 'エラーが発生しました。' . $e->getMessage()
+            ], 500);
+        }
     }
 }
