@@ -82,4 +82,28 @@ class FlightController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Delete specific flights data
+     */
+    public function destroy(int $id) {
+        try {
+            $flight = $this->flightService->deleteFlight($id);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'フライトのデータが正常に削除されました。'
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'フライトが見つかりませんでした。'
+            ], 404);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'エラーが発生しました。' . $e->getMessage()
+            ], 500);
+        }
+    }
 }
