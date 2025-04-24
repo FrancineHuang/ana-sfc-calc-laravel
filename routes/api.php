@@ -9,4 +9,5 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::post('flights', [FlightController::class, 'store'])->withoutMiddleware('auth:sanctum');;
+Route::post('flight', [FlightController::class, 'store'])->withoutMiddleware('auth:sanctum');
+Route::get('flights', [FlightController::class, 'index']);

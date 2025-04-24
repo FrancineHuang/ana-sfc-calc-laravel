@@ -4,9 +4,20 @@ namespace App\Services;
 
 use App\Models\Flight;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Collection;
 use Exception;
 
 class FlightService {
+
+    /**
+     *  Get all flight index data
+     *
+     *  @return Collection
+     * 
+     */
+    public function getAllFlights(): Collection {
+        return Flight::orderByDesc('boarding_date')->get();
+    }
 
     /**
      *  Create new flight data
