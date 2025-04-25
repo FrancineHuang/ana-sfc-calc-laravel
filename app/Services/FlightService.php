@@ -65,4 +65,35 @@ class FlightService {
 
         return $flight->delete();
     }
+
+    /**
+     *
+     * Restore deleted flight data by id
+     * 
+     *  @param array $data Validated Flight Data
+     *  @return Flight
+     *  @throws Exception
+     */
+    public function restoreFlight(int $id): bool {
+        // find deleted flight data by id
+        $flight = Flight::onlyTrashed()
+            ->findOrFail($id)
+            ->restore();
+        
+        return $flight;
+    }
+
+    /**
+     *
+     * show deleted flights data
+     * 
+     *  @param array $data Validated Flight Data
+     *  @return Flight
+     *  @throws Exception
+     */
+    public function getTrashedFlights(): Collection {
+        return Flight::onlyTrashed()
+            ->orderBy('deleted_at', 'desc')
+            ->get();
+    }
 }
