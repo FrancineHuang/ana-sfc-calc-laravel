@@ -84,7 +84,7 @@ class FlightController extends Controller
     }
 
     /**
-     * Delete specific flights data
+     * Delete specific flight data
      */
     public function destroy(int $id) {
         try {
@@ -103,6 +103,51 @@ class FlightController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'エラーが発生しました。' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Restore specific flight data
+     */
+    public function restore(int $id) {
+        try {
+            // restore the flight by id
+            $result = $this->flightService->restoreFlight($id);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'フライトのデータが正常に復元されました'
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => '削除されたフライトが見つかりませんでした。'
+            ], 404);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'エラーが発生しました。' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Get all deleted flight data
+     */
+    public function trashed() {
+        try {
+            $flights = $this->flightService->getTrashedFlights();
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $flights
+            ]);
+        } catch (Exception $e) {
+            // Error handling
+            return response()->json([
+                'status' => 'error',
+                'message' => 'エラーが発生しました：' . $e->getMessage()
             ], 500);
         }
     }

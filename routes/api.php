@@ -8,7 +8,15 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-// Flight related
+/**
+ * Flight Related API Routes
+ */
+
+// Specific Route
+Route::get('flights/trashed', [FlightController::class, 'trashed']);
+Route::post('flights/{id}/restore', [FlightController::class, 'restore']);
+
+// General Route
 Route::post('flight', [FlightController::class, 'store'])->withoutMiddleware('auth:sanctum');
 Route::get('flights', [FlightController::class, 'index']);
 Route::get('flights/{id}', [FlightController::class, 'show']);
